@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="emby-nginx 网盘媒体服务器nginx专家级解决方案">
+    <meta name="keywords" content="emby-nginx, 媒体服务器, 115网盘, STRM, Emby, Jellyfin">
+    <title>emby-nginx 是一款为 115网盘strm+302直链播放、123云盘strm+302直链播放，openlist strm+302直链播放 给Emby服务器+飞牛影视等直链播放工具，支持 Docker、Windows安装 多网盘登录，多emby服务器直链播放及 多种路径STRM 文件极速生成。</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:#1d1d1f;background:#2a2f3a;line-height:1.6;transition:background 0.3s, color 0.3s}nav{background:#1e252f;backdrop-filter:blur(20px);position:fixed;width:100%;z-index:100;padding:10px 0;transition:background 0.3s}.nav-container{max-width:100%;margin:0 auto;padding:0 15px;display:flex;align-items:center;justify-content:space-between}.nav-logo{height:30px;transition:opacity .3s}.nav-logo img{height:100%;object-fit:contain}.nav-logo.error{opacity:.5}.nav-logo.error::after{content:"Logo 加载失败";font-size:12px;color:#a3c9d6;margin-left:10px}.nav-list{display:none;position:fixed;top:50px;left:0;right:0;background:#1e252f;list-style:none;flex-direction:column;padding:10px 0;z-index:99}.nav-list.show{display:flex}.nav-list li a{color:#a3c9d6;text-decoration:none;font-size:16px;padding:10px 20px;display:block;transition:opacity .3s}.nav-list li a:hover{opacity:1;color:#4ecdc4}.menu-toggle{display:block;color:#a3c9d6;font-size:20px;background:none;border:none;cursor:pointer}main{padding-top:60px}.hero-section{text-align:center;padding:40px 15px;background:linear-gradient(135deg,#2e3a46,#4ecdc4);color:#fff;transition:background 0.3s}.hero-title{font-size:32px;font-weight:600;margin-bottom:6px;background:linear-gradient(45deg,#4ecdc4,#45b7c0);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.hero-subtitle{font-size:18px;font-weight:400;margin-bottom:15px;color:#d1e8e2;transition:color 0.3s}.hero-links{display:flex;flex-direction:column;gap:15px;margin-top:20px}.hero-links a{color:#45b7c0;text-decoration:none;font-weight:500;padding:10px 0;border:1px solid #45b7c0;border-radius:30px;transition:all 0.3s}.hero-links a:hover{text-decoration:none;background:rgba(69,183,192,0.2);color:#4ecdc4}.feature-section{max-width:100%;margin:0 auto;padding:40px 15px;background:#2e3a46;transition:background 0.3s, box-shadow 0.3s}.section-title{font-size:28px;font-weight:600;text-align:center;margin-bottom:30px;color:#4ecdc4}.feature-grid{display:grid;grid-template-columns:1fr;gap:20px}.feature-card{background:#34495e;border-radius:12px;padding:20px;box-shadow:0 5px 20px rgba(0,0,0,.2);transition:transform .3s, background 0.3s, box-shadow 0.3s;color:#d1e8e2}.feature-card:hover{transform:translateY(-5px);background:#3d566e}.feature-icon{font-size:24px;margin-bottom:10px;color:#4ecdc4}.feature-title{font-size:20px;font-weight:600;margin-bottom:10px;color:#fff;transition:color 0.3s}.feature-desc{color:#a3c9d6;font-size:15px;transition:color 0.3s}.code-container{position:relative;margin:20px 0}.code-section{background:#2a2f3a;color:#d1e8e2;padding:15px;border-radius:8px;font-family:Menlo,Monaco,Consolas,"Courier New",monospace;font-size:12px;line-height:1.5;overflow-x:auto;transition:background 0.3s, color 0.3s;white-space:pre-wrap;word-wrap:break-word}.copy-btn{position:absolute;top:5px;right:5px;background:#34495e;color:#d1e8e2;border:none;padding:3px 8px;border-radius:4px;cursor:pointer;font-size:12px;opacity:.7;transition:all .3s;z-index:10}.copy-btn:hover{opacity:1;background:#4ecdc4}.copy-success{background:#45b7c0!important}.guide-section{max-width:100%;margin:0 auto;padding:40px 15px;background:#2e3a46;transition:background 0.3s, box-shadow 0.3s}.guide-step{margin-bottom:30px}.step-title{font-size:22px;font-weight:600;margin-bottom:15px;color:#4ecdc4}.info-list{list-style-type:none;color:#a3c9d6;font-size:15px;line-height:1.6;margin:15px 0;transition:color 0.3s}.info-list li{margin-bottom:8px;position:relative;padding-left:20px}.info-list li:before{content:"•";color:#4ecdc4;position:absolute;left:0}footer{background:#1e252f;color:#a3c9d6;font-size:12px;padding:20px 0;text-align:center;transition:background 0.3s, color 0.3s}.footer-links{display:flex;justify-content:center;flex-wrap:wrap;margin-top:10px}.footer-links a{color:#45b7c0;text-decoration:none;margin:0 10px 10px}.footer-links a:hover{text-decoration:underline;color:#4ecdc4}.qrcode-container{text-align:center;margin:20px 0}.qrcode-img{max-width:150px;border:5px solid #4ecdc4;border-radius:10px;margin:0 auto}.qrcode-desc{color:#a3c9d6;margin-top:10px;font-size:14px;transition:color 0.3s}.manual-section{max-width:100%;margin:0 auto;padding:40px 15px;background:#2e3a46;transition:background 0.3s, box-shadow 0.3s}.manual-card{background:#34495e;border-radius:12px;padding:20px;margin-bottom:20px;transition:background 0.3s, box-shadow 0.3s}.manual-card h3{color:#4ecdc4;font-size:20px;margin-bottom:10px;transition:color 0.3s}.manual-card p{margin-bottom:10px;color:#d1e8e2;font-size:15px;transition:color 0.3s}.manual-card ul{margin:10px 0;padding-left:20px;transition:color 0.3s}.manual-card ul li{margin-bottom:8px;color:#a3c9d6;font-size:15px;transition:color 0.3s}.manual-card ul li:before{content:"•";color:#4ecdc4;margin-right:8px}
+
+        /* 亮色模式 */
+        body.light-mode { background: #f5f7fa; color: #333; }
+        .light-mode nav { background: #ffffff; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+        .light-mode .nav-list { background: #ffffff; }
+        .light-mode .nav-list li a { color: #555; }
+        .light-mode .hero-section { background: linear-gradient(135deg, #e0f7fa, #b2ebf2); color: #333; }
+        .light-mode .hero-title { background: linear-gradient(45deg, #00bcd4, #00838f); -webkit-background-clip: text; }
+        .light-mode .hero-subtitle { color: #555; }
+        .light-mode .feature-section, .light-mode .guide-section, .light-mode .manual-section { background: #ffffff; box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05); }
+        .light-mode .feature-card { background: #f5f5f5; color: #333; box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05); }
+        .light-mode .feature-card:hover { background: #e0e0e0; }
+        .light-mode .feature-title { color: #00796b; }
+        .light-mode .feature-desc { color: #666; }
+        .light-mode .code-section { background: #f0f0f0; color: #333; }
+        .light-mode footer { background: #e0e0e0; color: #555; }
+        .light-mode .info-list, .light-mode .qrcode-desc, .light-mode .manual-card p, .light-mode .manual-card ul li { color: #666; }
+        .light-mode .manual-section { background: #f9f9f9; }
+        .light-mode .manual-card { background: #ffffff; box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05); }
+        .light-mode .manual-card h3 { color: #00838f; }
+        .light-mode .manual-card p { color: #555; }
+        .light-mode .manual-card ul li { color: #666; }
+        .light-mode .manual-card ul li:before { color: #00bcd4; }
+        .light-mode .copy-btn { background: #e0e0e0; color: #333; }
+        .light-mode .copy-btn:hover { background: #00bcd4; color: white; }
+
+        /* 星空暗夜模式 - 增加灰度 */
+        body.starry-mode { background: #121212 url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 800 800"><g fill="rgba(255,255,255,0.15)"><circle cx="50" cy="50" r="1"/><circle cx="150" cy="150" r="1"/><circle cx="250" cy="50" r="1.5"/><circle cx="350" cy="150" r="1"/><circle cx="450" cy="50" r="1"/><circle cx="550" cy="150" r="1.5"/><circle cx="650" cy="50" r="1"/><circle cx="750" cy="150" r="1"/><circle cx="50" cy="250" r="1.5"/><circle cx="150" cy="350" r="1"/><circle cx="250" cy="250" r="1"/><circle cx="350" cy="350" r="1.5"/><circle cx="450" cy="250" r="1"/><circle cx="550" cy="350" r="1"/><circle cx="650" cy="250" r="1.5"/><circle cx="750" cy="350" r="1"/><circle cx="50" cy="450" r="1"/><circle cx="150" cy="550" r="1.5"/><circle cx="250" cy="450" r="1"/><circle cx="350" cy="550" r="1"/><circle cx="450" cy="450" r="1.5"/><circle cx="550" cy="550" r="1"/><circle cx="650" cy="450" r="1"/><circle cx="750" cy="550" r="1.5"/><circle cx="50" cy="650" r="1"/><circle cx="150" cy="750" r="1"/><circle cx="250" cy="650" r="1.5"/><circle cx="350" cy="750" r="1"/><circle cx="450" cy="650" r="1"/><circle cx="550" cy="750" r="1.5"/><circle cx="650" cy="650" r="1"/><circle cx="750" cy="750" r="1"/></g></svg>'); color: #d0d0d0; }
+        .starry-mode nav { background: rgba(30, 30, 30, 0.9); backdrop-filter: blur(20px); }
+        .starry-mode .nav-list { background: rgba(30, 30, 30, 0.95); }
+        .starry-mode .nav-list li a { color: #9e9e9e; }
+        .starry-mode .hero-section { background: linear-gradient(135deg, #1a1a1a, #2d2d2d); color: #e0e0e0; }
+        .starry-mode .hero-title { background: linear-gradient(45deg, #616161, #9e9e9e); -webkit-background-clip: text; }
+        .starry-mode .hero-subtitle { color: #b0b0b0; }
+        .starry-mode .feature-section, .starry-mode .guide-section, .starry-mode .manual-section { background: rgba(40, 40, 40, 0.9); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .starry-mode .feature-card { background: rgba(50, 50, 50, 0.9); color: #d0d0d0; border: 1px solid rgba(255, 255, 255, 0.05); }
+        .starry-mode .feature-card:hover { background: rgba(60, 60, 60, 0.9); }
+        .starry-mode .feature-title { color: #9e9e9e; }
+        .starry-mode .feature-desc { color: #9e9e9e; }
+        .starry-mode .code-section { background: rgba(30, 30, 30, 0.9); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .starry-mode footer { background: rgba(30, 30, 30, 0.9); border-top: 1px solid rgba(255, 255, 255, 0.05); }
+        .starry-mode .info-list, .starry-mode .qrcode-desc, .starry-mode .manual-card p, .starry-mode .manual-card ul li { color: #9e9e9e; }
+        .starry-mode .manual-section { background: rgba(40, 40, 40, 0.9); }
+        .starry-mode .manual-card { background: rgba(50, 50, 50, 0.9); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .starry-mode .manual-card h3 { color: #9e9e9e; }
+        .starry-mode .manual-card p { color: #d0d0d0; }
+        .starry-mode .manual-card ul li { color: #9e9e9e; }
+        .starry-mode .manual-card ul li:before { color: #757575; }
+        .starry-mode .copy-btn { background: rgba(50, 50, 50, 0.9); color: #d0d0d0; }
+        .starry-mode .copy-btn:hover { background: #616161; }
+
+        .theme-switcher { position: fixed; bottom: 20px; right: 20px; width: 40px; height: 40px; border-radius: 50%; background: #4ecdc4; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); z-index: 1000; border: none; font-size: 16px; transition: all 0.3s; }
+        .light-mode .theme-switcher { background: #00bcd4; }
+        .starry-mode .theme-switcher { background: #616161; }
+
+        .tools-section { max-width: 100%; margin: 0 auto; padding: 40px 15px; background: #2e3a46; transition: background 0.3s, box-shadow 0.3s; }
+        .light-mode .tools-section { background: #ffffff; box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05); }
+        .starry-mode .tools-section { background: rgba(40, 40, 40, 0.9); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); }
+
+        .toggle-tools { display: inline-block; background: #4ecdc4; color: white; padding: 10px 20px; border-radius: 30px; cursor: pointer; margin-bottom: 20px; transition: all 0.3s; border: none; font-size: 16px; width: 100%; }
+        .light-mode .toggle-tools { background: #00bcd4; }
+        .starry-mode .toggle-tools { background: #616161; }
+        .toggle-tools:hover { background: #45b7c0; transform: translateY(-2px); }
+        .light-mode .toggle-tools:hover { background: #00838f; }
+        .starry-mode .toggle-tools:hover { background: #757575; }
+
+        .tools-content { display: none; overflow: hidden; transition: all 0.3s; }
+        .tools-content.show { display: block; }
+
+        .tg-icon { display: inline-block; width: 20px; height: 20px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2345b7c0' d='M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.14-.26.26-.429.26l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z'/%3E%3C/svg%3E"); background-size: contain; vertical-align: middle; margin-right: 5px; }
+        .light-mode .tg-icon { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2300838f' d='M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.14-.26.26-.429.26l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z'/%3E%3C/svg%3E"); }
+        .starry-mode .tg-icon { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%239e9e9e' d='M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.14-.26.26-.429.26l.213-3.053 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.941z'/%3E%3C/svg%3E"); }
+
+        .deploy-icon { display: inline-block; width: 20px; height: 20px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2345b7c0' d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.87 0 .53-.39 1.39-2.1 1.39-1.6 0-2.23-.72-2.32-1.64H8.04c.1 1.7 1.36 2.66 2.86 2.97V19h2.34v-1.67c1.52-.29 2.72-1.16 2.73-2.77-.01-2.2-1.9-2.96-3.66-3.42z'/%3E%3C/svg%3E"); background-size: contain; vertical-align: middle; margin-right: 5px; }
+        .light-mode .deploy-icon { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2300838f' d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.87 0 .53-.39 1.39-2.1 1.39-1.6 0-2.23-.72-2.32-1.64H8.04c.1 1.7 1.36 2.66 2.86 2.97V19h2.34v-1.67c1.52-.29 2.72-1.16 2.73-2.77-.01-2.2-1.9-2.96-3.66-3.42z'/%3E%3C/svg%3E"); }
+        .starry-mode .deploy-icon { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%239e9e9e' d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.87 0 .53-.39 1.39-2.1 1.39-1.6 0-2.23-.72-2.32-1.64H8.04c.1 1.7 1.36 2.66 2.86 2.97V19h2.34v-1.67c1.52-.29 2.72-1.16 2.73-2.77-.01-2.2-1.9-2.96-3.66-3.42z'/%3E%3C/svg%3E"); }
+
+        .docs-icon { display: inline-block; width: 20px; height: 20px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2345b7c0' d='M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-2-6H7v-2h10v2zm-4 4H7v-2h6v2z'/%3E%3C/svg%3E"); background-size: contain; vertical-align: middle; margin-right: 5px; }
+        .light-mode .docs-icon { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2300838f' d='M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-2-6H7v-2h10v2zm-4 4H7v-2h6v2z'/%3E%3C/svg%3E"); }
+        .starry-mode .docs-icon { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%239e9e9e' d='M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-2-6H7v-2h10v2zm-4 4H7v-2h6v2z'/%3E%3C/svg%3E"); }
+
+        .download-section { max-width: 100%; margin: 0 auto; padding: 40px 15px; background: #2e3a46; transition: background 0.3s, box-shadow 0.3s; }
+        .download-card { background: #34495e; border-radius: 12px; padding: 20px; margin-bottom: 20px; transition: background 0.3s, box-shadow 0.3s; }
+        .download-card h3 { color: #4ecdc4; font-size: 20px; margin-bottom: 10px; transition: color 0.3s; }
+        .download-card p { margin-bottom: 15px; color: #d1e8e2; font-size: 15px; transition: color 0.3s; }
+        .download-btn { display: inline-block; background: #4ecdc4; color: white; padding: 10px 20px; border-radius: 30px; text-decoration: none; font-weight: 500; transition: all 0.3s; margin-top: 10px; width: 100%; text-align: center; }
+        .download-btn:hover { background: #45b7c0; transform: translateY(-2px); }
+        .light-mode .download-section { background: #ffffff; box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05); }
+        .light-mode .download-card { background: #f5f5f5; box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05); }
+        .light-mode .download-card h3 { color: #00838f; }
+        .light-mode .download-card p { color: #555; }
+        .light-mode .download-btn { background: #00bcd4; }
+        .light-mode .download-btn:hover { background: #00838f; }
+        .starry-mode .download-section { background: rgba(40, 40, 40, 0.9); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .starry-mode .download-card { background: rgba(50, 50, 50, 0.9); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .starry-mode .download-card h3 { color: #9e9e9e; }
+        .starry-mode .download-card p { color: #d0d0d0; }
+        .starry-mode .download-btn { background: #616161; }
+        .starry-mode .download-btn:hover { background: #757575; }
+
+        .ending-message { font-size: 24px; font-weight: bold; text-align: center; margin: 40px 0; padding: 20px; background: linear-gradient(135deg, #4ecdc4, #45b7c0); color: white; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .light-mode .ending-message { background: linear-gradient(135deg, #00bcd4, #00838f); }
+        .starry-mode .ending-message { background: linear-gradient(135deg, #616161, #757575); }
+
+        .tg-contact-card { background: rgba(0, 136, 204, 0.1); border: 1px solid rgba(0, 136, 204, 0.3); border-radius: 12px; padding: 20px; margin: 20px auto; max-width: 300px; text-align: center; transition: all 0.3s; }
+        .tg-contact-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0, 136, 204, 0.2); }
+        .tg-contact-icon { width: 60px; height: 60px; margin: 0 auto 15px; display: block; }
+        .tg-contact-btn { display: inline-block; background: #0088cc; color: white; padding: 10px 20px; border-radius: 30px; text-decoration: none; font-weight: 500; transition: all 0.3s; margin-top: 10px; }
+        .tg-contact-btn:hover { background: #006699; transform: translateY(-2px); }
+        .light-mode .tg-contact-card { background: rgba(0, 136, 204, 0.05); border: 1px solid rgba(0, 136, 204, 0.2); }
+        .starry-mode .tg-contact-card { background: rgba(0, 136, 204, 0.15); border: 1px solid rgba(0, 136, 204, 0.4); }
+
+        @media (min-width: 768px) {
+            .hero-title { font-size: 42px; }
+            .hero-subtitle { font-size: 22px; }
+            .hero-links { flex-direction: row; justify-content: center; gap: 20px; }
+            .hero-links a { padding: 10px 20px; }
+            .feature-grid { grid-template-columns: repeat(2, 1fr); }
+            .download-btn { width: auto; }
+            .toggle-tools { width: auto; }
+            .nav-list li { margin: 0 5px; }
+        }
+
+        @media (min-width: 992px) {
+            .nav-list { display: flex; position: static; flex-direction: row; background: transparent; padding: 0; }
+            .menu-toggle { display: none; }
+            .feature-grid { grid-template-columns: repeat(3, 1fr); }
+            .nav-list li { margin: 0 8px; }
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <nav>
+        <div class="nav-container">
+            <div class="nav-logo">
+    <img src="https://cdn.jsdelivr.net/gh/HQSxjj/emby-nginx@main/公众号/IMG_0302.jpeg" alt="emby-nginx助手 Logo" onload="this.parentElement.classList.remove('error')" onerror="this.parentElement.classList.add('error')">
+</div>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <ul class="nav-list" id="navList">
+    <li><a href="#features">核心功能</a></li>
+    <li><a href="#exclusive-features">独家功能</a></li>
+    <li><a href="#deploy">部署命令</a></li>
+    <li><a href="#manual">使用说明</a></li>
+    <li><a href="#structure">STRM结构</a></li>
+    <li><a href="#download">下载中心</a></li>
+    <li><a href="#contact">联系我们</a></li>
+    <li><a href="#tools">配合工具</a></li>
+    <li><a href="https://docs.qq.com/doc/DTHVTcHRwb3pJdk1D" target="_blank" rel="noopener noreferrer">腾讯文档</a></li>
+    <li><a href="https://b23.tv/zlnJ6NE" target="_blank" rel="noopener noreferrer">视频教程</a></li>
+</ul>
+            
+        </div>
+    </nav>
+    
+    <main>
+        <section class="hero-section">
+            <h1 class="hero-title">emby-nginx</h1>
+            <h2 class="hero-subtitle">是一款为 115网盘strm+302直链播放  123云盘strm+302直链播放  openlist strm+302直链播放 给Emby服务器+飞牛影视等直链播放工具，支持 Docker、Windows安装 多网盘登录，多emby服务器直链播放及 多种路径STRM 文件极速生成</h2>
+            <div class="hero-links">
+                <a href="#deploy"><span class="deploy-icon"></span>拉取安装</a>
+                <a href="https://docs.qq.com/doc/DTHVTcHRwb3pJdk1D" target="_blank" rel="noopener noreferrer"><span class="docs-icon"></span>教程文档</a>
+                <a href="https://t.me/Embynginx" target="_blank" rel="noopener noreferrer"><span class="tg-icon"></span>Telegram群</a>
+            </div>
+        </section>
+        
+<section class="feature-section" id="features">
+    <h2 class="section-title">核心功能</h2>
+    <div class="feature-grid">
+        <div class="feature-card">
+            <div class="feature-icon">🔒</div>
+            <h3 class="feature-title">安全保护</h3>
+            <p class="feature-desc">启用程序自锁机制，超过五次输错密码程序自锁。网盘cookie账号密码api密钥默认防查看，防复制机制，保护密保不被泄露。</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3 class="feature-title">自动化配置</h3>
+            <p class="feature-desc">扫115网盘二维码登录Cookie各个端，登录官方认证的115网盘open和123云盘open，直链播放115网盘或123云盘。生成基于openlist生成的网盘strm文件+直链播放</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔍</div>
+            <h3 class="feature-title">实时监控</h3>
+            <p class="feature-desc">基于事件通知实时监控115网盘文件变动，自动同步生成或删除STRM文件，基于cd2webhook实时监控生成删除123云盘strm文件，任何strm增减秒级同步刷新Emby海报墙。</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">📱</div>
+            <h3 class="feature-title">多平台支持</h3>
+            <p class="feature-desc">完美适配<a href="https://emby.media/download.html" target="_blank" style="color:inherit;text-decoration:underline">Emby</a>、<a href="https://jellyfin.org/downloads/docker" target="_blank" style="color:inherit;text-decoration:underline">Jellyfin</a>、<a href="https://www.fnnas.com" target="_blank" style="color:inherit;text-decoration:underline">飞牛影视</a>，极影视，以及<a href="https://www.zidoo.tv/Index/index/l/zh-cn.html" target="_blank" style="color:inherit;text-decoration:underline">芝度</a>、<a href="https://www.ugnas.com/support/download" target="_blank" style="color:inherit;text-decoration:underline">绿联</a>、<a href="https://apps.apple.com/cn/app/infuse-7/id1136220934" target="_blank" style="color:inherit;text-decoration:underline">Infuse</a>、<a href="https://zh.okaapps.com/product/1659622164" target="_blank" style="color:inherit;text-decoration:underline">Vidhub</a>等主流播放器。</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🎬</div>
+            <h3 class="feature-title">媒体信息获取</h3>
+            <p class="feature-desc">实时生成STRM并探测文件媒体信息，支持字幕文件自动下载。</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🤖</div>
+            <h3 class="feature-title">微信机器人</h3>
+            <p class="feature-desc">企业微信Webhook通知，STRM生成/更新提醒，Cookie失效自动提醒并重新生成二维码。emby入库播放通知，观影账户反馈登录城市ip通知，避免不明异地302播放风控</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">☁️</div>
+            <h3 class="feature-title">WebDAV支持</h3>
+            <p class="feature-desc">通过5002端口开启WebDAV服务，支持芝度、腾讯极光，Infuse、vidhub等播放器直接刮削封面并在线播放。</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🚀</div>
+            <h3 class="feature-title">123云盘特别支持</h3>
+            <p class="feature-desc">生成123云盘反代直链播放，支持115网盘资源无需下载直接离线至123云盘。</p>
+        </div>
+    </div>
+</section>
+
+<section class="feature-section" id="exclusive-features">
+    <h2 class="section-title">独家功能</h2>
+    <div class="feature-grid">
+        <div class="feature-card">
+            <div class="feature-icon">🎯</div>
+            <h3 class="feature-title">快速生成ED2K链接</h3>
+            <p class="feature-desc">独创的选择模式和实时监控115网盘文件的ed2k链接，多元化分享链接。</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">🔄</div>
+            <h3 class="feature-title">115转123云盘</h3>
+            <p class="feature-desc">利用合理方式灵活选择115文件高速离线进123云盘，实现跨网盘资源高速迁移。</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">👥</div>
+            <h3 class="feature-title">多设备同时播放</h3>
+            <p class="feature-desc">独创同一网盘视频文件同时被7个设备在线播放观看，满足家庭共同观影。</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">⚖️</div>
+            <h3 class="feature-title">多账号负载均衡</h3>
+            <p class="feature-desc">独家均衡负载多个网盘账号同时挂载运用自如，提升系统稳定性和性能。</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">🔄</div>
+            <h3 class="feature-title">多服务器反代</h3>
+            <p class="feature-desc">首创nginx同时反代多个emby/jellfin，外加飞牛影视，统一反代多个媒体服务器直链播放。</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">💾</div>
+            <h3 class="feature-title">硬链接轮询监控</h3>
+            <p class="feature-desc">利用硬链接轮询监控秒上传文件，节省上传宽带占用，避免家宽上传大被封控。</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">🔧</div>
+            <h3 class="feature-title">精准媒体信息探测</h3>
+            <p class="feature-desc">内置emby媒体文件信息精准控制线程全量+追更探测，确保秒起播和媒体信息完整性。</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">🌐</div>
+            <h3 class="feature-title">远程STRM挂载</h3>
+            <p class="feature-desc">首创内置webdav把strm文件远程挂载识别刮削，实现跨设备识别刮削。</p>
+        </div>
+    </div>
+</section>
+        
+        <section class="guide-section" id="deploy">
+            <h2 class="section-title">一键部署</h2>
+            <div class="guide-step">
+                <h3 class="step-title">Docker Run 方式</h3>
+                <div class="code-container">
+                    <button class="copy-btn">复制</button>
+                    <div class="code-section">
+<pre>docker run -d \
+  --name emby-nginx \
+  -p 7001:7001 \
+  -p 8021:8001 \
+  -p 9527:9527 \
+  -p 5002:5002 \
+  -v /vol1/1000/emby-nginx/strm:/strm \
+  -v /vol1/1000/emby-nginx/backup:/app/backup \
+  --network bridge \
+  --restart unless-stopped \
+  yantaocheng/emby-nginx:latest</pre>
+                    </div>
+                </div>
+            </div>
+            <div class="guide-step">
+                <h3 class="step-title">Docker Compose 方式</h3>
+                <div class="code-container">
+                    <button class="copy-btn">复制</button>
+                    <div class="code-section">
+<pre>version: '3.8'
+
+services:
+  emby-nginx:
+    image: yantaocheng/emby-nginx:latest
+    container_name: emby-nginx
+    ports:
+      - "7001:7001"
+      - "8021:8001"
+      - "9527:9527"
+      - "5002:5002"
+    volumes:
+      - /vol1/1000/emby-nginx/strm:/strm
+      - /vol1/1000/emby-nginx/backup:/app/backup
+    network_mode: bridge
+    restart: unless-stopped</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="manual-section" id="manual">
+            <h2 class="section-title">详细使用说明</h2>
+            
+            <div class="manual-card">
+                <h3>安装与登录</h3>
+                <p>首先通过docker命令拉取或compose命令部署容器。成功运行后，在浏览器输入局域网IP:9527访问后台。</p>
+                <ul>
+                    <li>首次安装用户名和密码生成于docker日志</li>
+                    <li>登录后建议及时修改用户名密码（本地存储机制密码存于/backup的.db文件内）</li>
+                </ul>
+            </div>
+            
+            <div class="manual-card">
+                <h3>仪表盘功能</h3>
+                <p>这是通过Emby插件Playback Reporting实现的观影数据可视化界面。</p>
+                <ul>
+                    <li>当成功显示饼状图时，表明Emby-Nginx与Emby服务器的反向代理连接正常</li>
+                    <li>若无数据显示，需检查：1.插件是否安装 2.地址否统一 3.反代配置是否正确</li>
+                </ul>
+            </div>
+            
+            <div class="manual-card">
+                <h3>用户信息管理</h3>
+                <ul>
+                    <li>UUID是设备生成的唯一标识码，设备不变时即使升级版本也不会改变</li>
+                    <li>激活码需将UUID发送给开发者获取，同一UUID可重复激活</li>
+                    <li>及时修改用户名密码，密码输错超过五次，程序自锁，需手动重启容器</li>
+                </ul>
+            </div>
+            
+            <div class="manual-card">
+                <h3>Cookie配置</h3>
+                <p>支持三种配置方式：</p>
+                <ul>
+                    <li><strong>115网盘：</strong>扫描非主用端的二维码获取Cookie，还可扫码登录115open（分工合作避免风控）</li>
+										                    <li><strong>123云盘：</strong>支持123账号密码登录添加cookie模块</li><li><strong>其他网盘：</strong>联动openlist添加openlist模块</li>
+                </ul>
+            </div>
+            
+            <div class="manual-card">
+                <h3>Strm文件生成</h3>
+                <p>提供三种生成模式：</p>
+                <ul>
+                    <li><strong>本地Strm：</strong>实时监控115网盘变化，生成到strm/local目录供Emby挂载，支持定时全量生成（cron表达式）</li>
+                    <li><strong>外网Strm：</strong>通过5002端口WebDAV提供strm/online目录，适用芝杜/Infuse等播放器（有Emby时建议直接用Emby）</li>
+										  <li><strong>openlistStrm：</strong>通过openlist的cookie模块生成115和123云盘以外的网盘strm文件</li>
+                </ul>
+            </div>
+            
+            <div class="manual-card">
+                <h3>媒体服务器</h3>
+                <p><strong>Emby反代配置：</strong></p>
+                <ul>
+                    <li>必须填写准确的本地地址（如http://192开头局域网地址:8096）和API密钥</li>
+                    <li>播放端口从原生8096变为直链端口7001</li>
+                    <li>支持多个Emby配置（通过+号添加）</li>
+                </ul>
+                
+                <p><strong>飞牛影视直链反代：</strong></p>
+                <ul>
+                    <li>115网盘123云盘本地挂载刮削（因飞牛不支持Strm解析）</li>
+                    <li>播放端口从8005变为直链端口8021</li>
+                </ul>
+            </div>
+            
+            <div class="manual-card">
+                <h3>实用工具</h3>
+                <ul>
+                    <li><strong>封面生成器：</strong>在Emby完成刮削后，可立即或定时生成高清封面</li>
+                    <li><strong>Strm批处理：</strong>支持批量删除错误文件，或全局替换strm内路径前缀</li>
+										<li><strong>115转123：</strong>获取115文件直链地址，通过123离线下载转移文件至123云盘</li>
+										<li><strong>123离线下载：</strong>支持http/https和磁力链接粘贴后离线下载至123云盘</li>
+												<li><strong>115分享strm：</strong>可生成他人分享的115大包链接的strm供刮削播放</li>
+												<li><strong>媒体信息探测：</strong>全量刮削emby节目的视频文件格式信息</li>
+												<li><strong>网盘生成ED2K:</strong>灵活选择生成115网盘文件的ed2k链接</li>
+												<li><strong>硬链接监控秒传：</strong>轮询监控本地下载文件夹内文件秒传进网盘</li>
+                </ul>
+            </div>
+            
+            <div class="manual-card">
+                <h3>消息通知系统</h3>
+                <p>通过企业微信机器人Webhook接收：</p>
+                <ul>
+                    <li>实时系统日志</li>
+                    <li>Emby事件通知（入库/播放/暂停）</li>
+                    <li>特殊机制：利用Emby刮削成功通知触发媒体文件信息追更探测</li>
+                </ul>
+            </div>
+            
+            <div class="manual-card">
+                <h3>右上角功能区</h3>
+                <ul>
+                    <li><strong>教程文档：</strong>完整教程文档和问题解决方案</li>
+                    <li><strong>版本信息：</strong>查看当前版本号和更新日志</li>
+                    <li><strong>运行日志：</strong>所有操作记录的集中显示，错误排查时建议：
+                        <ul>
+                            <li>关注ERROR级别日志</li>
+                            <li>按时间戳定位问题</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="manual-card">
+                <h3>关键注意事项</h3>
+                <ul>
+                    <li>直链播放必须使用反代端口播放（Emby用7001，飞牛用8021）</li>
+                    <li>重要操作前建议备份/backup目录</li>
+                    <li>探测媒体信息需关闭神医助手提取媒体信息独占</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section class="guide-section" id="structure">
+            <h2 class="section-title">端口和STRM文件说明</h2>
+            <div class="guide-step">
+                <h3 class="step-title">端口映射说明</h3>
+                <ul class="info-list">
+                    <li><strong>9527:9527</strong> - 管理后台访问端口，STRM文件外网访问的"前缀通道"</li>
+                    <li><strong>7001:7001</strong> - 反向代理Emby/Jellyfin的8096端口，实现302直链</li>
+                    <li><strong>5002:5002</strong> - WebDAV服务端口，支持播放器直接挂载</li>
+                    <li><strong>8021:8001</strong> - 飞牛影视系统专用直链反代端口</li>
+                </ul>
+            </div>
+            <div class="guide-step">
+                <h3 class="step-title">文件夹说明</h3>
+                <ul class="info-list">
+                    <li><strong>/strm/local</strong> - 本机Emby/Jellyfin容器映射的STRM文件目录</li>
+                    <li><strong>/strm/online</strong> - 外部播放器使用的STRM文件，通过WebDAV挂载</li>
+										<li><strong>/strm/openlist</strong> - 存放基于挂载在openlist网盘的strm文件</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="download-section" id="download">
+            <h2 class="section-title">Windows版本下载</h2>
+            
+            <div class="download-card">
+                <h3>emby-nginx Windows版</h3>
+                <p>适用于Windows系统的emby-nginx助手</p>
+                <a href="https://github.com/Yongzz668/emby-nginx/releases/tag/2.5.17" class="download-btn" target="_blank" rel="noopener noreferrer">下载emby-nginx</a>
+            </div>
+            
+            <div class="download-card">
+                <h3>Emby Server Windows版</h3>
+                <p>官方Emby Server Windows版本</p>
+                <a href="https://github.com/Hqsxjj/emby-nginx/releases/tag/2.5.18" class="download-btn" target="_blank" rel="noopener noreferrer">下载Emby Server</a>
+            </div>
+        </section>
+        
+        <section class="guide-section" id="contact">
+            <h2 class="section-title">获取支持</h2>
+            <div class="qrcode-container">
+                <img src="https://cdn.jsdelivr.net/gh/Hqsxjj/emby-nginx@main/公众号/IMG_0267.jpeg" alt="微信公众号二维码" class="qrcode-img">
+                <p class="qrcode-desc">扫码关注微信公众号获取技术支持</p>
+            </div>
+           
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <p style="font-size: 16px; color: #a3c9d6; margin-bottom: 15px;">免激活体验一天，随后可扫码关注微信公众号: <strong>emby-nginx助手</strong> 发送"激活码"获取购买方式激活</p>
+                <p style="font-size: 16px; color: #a3c9d6; margin-bottom: 20px;">记得发送UUID至: <a href="mailto:yantaocheng@outlook.com" style="color: #45b7c0;">yantaocheng@outlook.com</a> 索要激活码邮件</p>
+                <p style="font-size: 16px; color: #a3c9d6;">
+                    <a href="https://t.me/Embynginx" target="_blank" rel="noopener noreferrer" style="color: #45b7c0; text-decoration: none;">
+                        <span class="tg-icon"></span> 加入Telegram交流群
+                    </a>
+                </p>
+            </div>
+        </section>
+<script>
+  (function(){
+    var container = document.getElementById('main') || document.body;
+    var html = `
+      <div style="max-width:720px;margin:16px auto;padding:14px;border-radius:8px;
+                  box-shadow:0 6px 18px rgba(0,0,0,0.06);background:linear-gradient(180deg,#fff,#fbfdff);
+                  border:1px solid rgba(0,0,0,0.04);font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Noto Sans',Arial;">
+        <h3 style="margin:0 0 6px 0;font-size:1.05rem;color:#0b2540;">emby 刮削问题解决方案</h3>
+        <p style="margin:0 0 10px 0;color:#334155;">emby 刮削不出图片？这里有一份解决方案：Cloudflare Workers + TMDB 代理等。</p>
+        <a href="https://cftmdb.6080808.xyz" target="_blank" rel="noopener noreferrer"
+            style="display:inline-block;padding:8px 12px;border-radius:6px;text-decoration:none;
+                  font-weight:600;border:1px solid rgba(11,37,64,0.08);background:#0b57a4;color:#fff;">
+          查看详细方案 →
+        </a>
+      </div>`;
+container.insertAdjacentHTML('beforeend', html);
+  })();
+</script>
+        <section class="tools-section" id="tools">
+            <h2 class="section-title">配合工具</h2>
+            <button class="toggle-tools" onclick="toggleTools()">显示/隐藏配合工具</button>
+            
+            <div class="tools-content" id="toolsContent">
+                <div class="guide-step">
+                    <h3 class="step-title">Emby 服务器部署</h3>
+                    <div class="code-container">
+                        <button class="copy-btn">复制</button>
+                        <div class="code-section">
+<pre>docker run -d \
+  --name embyserver \
+  -e PUID=0 \
+  -e PGID=0 \
+  -e TZ=Asia/Shanghai \
+  -v /vol1/1000/emby/config:/config \
+  -v /vol1/1000/emby-nginx/strm:/strm \
+  -p 8096:8096 \
+  --restart unless-stopped \
+  linuxserver/emby:latest</pre>
+                        </div>
+                    </div>
+                    <div class="code-container">
+                        <button class="copy-btn">复制</button>
+                        <div class="code-section">
+<pre>version: "3.8"
+services:
+  embyserver:
+    image: linuxserver/emby:latest
+    container_name: embyserver
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=Asia/Shanghai
+    volumes:
+      - /vol1/1000/emby/config:/config
+      - /vol1/1000/emby-nginx/strm:/strm
+    ports:
+      - 8096:8096
+    restart: unless-stopped</pre>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="guide-step">
+                    <h3 class="step-title">Docker Copilot 部署</h3>
+                    <div class="code-container">
+                        <button class="copy-btn">复制</button>
+                        <div class="code-section">
+<pre>docker run -d \
+ --name dockercopilot \
+ --restart always \
+ --privileged \
+ --network bridge \
+ -p 12712:12712 \
+ -v /var/run/docker.sock:/var/run/docker.sock \
+ -v /vol1/1000/data:/data \
+ -e TZ=Asia/Shanghai \
+ -e DOCKER_HOST=unix:///var/run/docker.sock \
+ -e secretKey=aa123456 \
+ 0nlylty/dockercopilot:latest</pre>
+                        </div>
+                    </div>
+                    <div class="code-container">
+                        <button class="copy-btn">复制</button>
+                        <div class="code-section">
+<pre>version: '3.8'
+services:
+  dockercopilot:
+    image: 0nlylty/dockercopilot:latest
+    container_name: dockercopilot
+    restart: always
+    privileged: true
+    network_mode: bridge
+    ports:
+      - "12712:12712"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /vol1/1000/data:/data
+    environment:
+      - TZ=Asia/Shanghai
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - secretKey=aa123456</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="guide-step">
+                    <h3 class="step-title">CloudDrive2 容器配置</h3>
+                    <div class="code-container">
+                        <button class="copy-btn">复制</button>
+                        <div class="code-section">
+<pre>docker run -d \
+  --name clouddrive2 \
+  --restart unless-stopped \
+  -e TZ=Asia/Shanghai \
+  -e CLOUDDRIVE_HOME=/Config \
+  -v /vol1/1000/CloudNAS:/CloudNAS:shared \
+  -v /vol1/1000/docker/clouddrive2/config:/Config \
+  -v /vol1/1000/emby-nginx/strm:/strm:shared \
+  --device /dev/fuse \
+  --privileged \
+  --pid=host \
+  -p 19798:19798 \
+  cloudnas/clouddrive2:latest</pre>
+                        </div>
+                    </div>
+                    <div class="code-container">
+                        <button class="copy-btn">复制</button>
+                        <div class="code-section">
+<pre>version: '3.8'
+services:
+  clouddrive2:
+    image: cloudnas/clouddrive2:latest
+    container_name: clouddrive2
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Shanghai
+      - CLOUDDRIVE_HOME=/Config
+    volumes:
+      - /vol1/1000/CloudNAS:/CloudNAS:shared
+      - /vol1/1000/docker/clouddrive2/config:/Config
+      - /vol1/1000/emby-nginx/strm:/strm:shared
+    devices:
+      - /dev/fuse
+    privileged: true
+    pid: host
+    ports:
+      - "19798:19798"</pre>
+                        </div>
+                    </div>
+              </div>
+                
+                <div class="guide-step">
+                    <h3 class="step-title">CloudSaver 容器配置</h3>
+                    <div class="code-container">
+                        <button class="copy-btn">复制</button>
+                        <div class="code-section">
+<pre>docker run -d \
+  -p 8008:8008 \
+  -v /vol1/1000/cloud-saver/data:/app/data \
+  -v /vol1/1000/docker/cloud-saver/config:/app/config \
+  --name cloud-saver \
+  jiangrui1994/cloudsaver:latest</pre>
+                        </div>
+                    </div>
+                    <div class="code-container">
+                        <button class="copy-btn">复制</button>
+                        <div class="code-section">
+<pre>version: '3.8'
+services:
+  cloud-saver:
+    image: jiangrui1994/cloudsaver:latest
+    container_name: cloud-saver
+    ports:
+      - "8008:8008"
+    volumes:
+      - /vol1/1000/cloud-saver/data:/app/data
+      - /vol1/1000/docker/cloud-saver/config:/app/config</pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="guide-step">
+                    <h3 class="step-title">Clash Meta 容器配置</h3>
+                    <div class="code-container">
+                        <button class="copy-btn">复制</button>
+                        <div class="code-section">
+<pre>docker run -d \
+  --name clash-meta \
+  --restart unless-stopped \
+  -p 7890:7890 \
+  -p 7891:7891 \
+  -p 9090:9090 \
+  -v /vol1/1000/clash-meta:/root/.config/clash \
+  -e TZ=Asia/Shanghai \
+  ghcr.io/metacubex/clash-meta:latest</pre>
+                        </div>
+                    </div>
+                    <div class="code-container">
+                        <button class="copy-btn">复制</button>
+                        <div class="code-section">
+<pre>version: '3.8'
+services:
+  clash-meta:
+    image: ghcr.io/metacubex/clash-meta:latest
+    container_name: clash-meta
+    restart: unless-stopped
+    ports:
+      - "7890:7890"   # HTTP 代理
+      - "7891:7891"   # SOCKS5 代理
+      - "9090:9090"   # 控制面板
+    volumes:
+      - /vol1/1000/clash-meta:/root/.config/clash
+    environment:
+      - TZ=Asia/Shanghai</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>使用声明（嵌入版）</title>
+
+
+  <div id="declaration-host"><template shadowrootmode="open"><style>
+      :host { display: block; }
+      section { 
+        box-sizing: border-box;
+        padding: 1rem; 
+        border-radius: 8px; 
+        border: 1px solid rgba(0,0,0,0.08);
+        background: transparent;
+/* 不强制背景，使用网站背景 */
+        color: inherit;
+/* 继承宿主颜色 */
+        font: inherit;
+/* 继承宿主字体 */
+        line-height: 1.6;
+}
+      h2 { margin: 0 0 0.5rem 0; font-size: 1.125em;
+}
+      ol { padding-left: 1.1em;
+}
+      li { margin: 0.5rem 0;
+}
+      code { background: rgba(0,0,0,0.04); padding: 0 0.25em; border-radius: 3px;
+}
+      hr { border: none; border-top: 1px solid rgba(0,0,0,0.06); margin: 1rem 0;
+}
+      @media (prefers-color-scheme: dark) {
+        section { border-color: rgba(255,255,255,0.06);
+}
+      }
+    </style><div aria-hidden="false">
+      <section aria-labelledby="decl-title">
+        <h2 id="decl-title">使用声明（重要）</h2>
+        <p>本工具仅用于帮助使用者合理利用其自有网盘账户与相关功能，使用前请务必阅读并理解以下条款。</p>
+        <ol>
+          <li><strong>工具用途限定：</strong>本工具仅在帮助使用者合理利用自有网盘账户文件的情况下使用，利用 <code>.strm</code> 特性减少网盘访问服务器压力；利用网盘的 <code>302</code> 重定向特性减少使用者家庭上传带宽占用；并利用 <code>nginx</code> 特性降低配置难度。</li>
+          <li><strong>不承担第三方资源管理责任：</strong>本工具不涉及对视频文件本身的删除或修改，也不帮助使用者搜索或转存第三方人员资源。如因网盘文件减少或丢失导致任何损失，本工具不承担相应责任。</li>
+          <li><strong>不涉及爬取/重命名/刮削行为：</strong>本工具不对视频文件进行重命名、刮削元数据、或拉取相关节目的海报与人物头像等。如有涉及侵犯版权的功能或行为，请及时联系开发者反馈处理。</li>
+          <li><strong>不提供 VPN 服务与相关支持：</strong>本工具不包含任何 VPN 功能，亦无法帮助解决 VPN 相关网络问题，使用者需自行解决网络连通性及 VPN 需求。</li>
+          <li><strong>激活与付费说明：</strong>本工具的激活机制为：通过激活码在使用者本地进行永久激活，激活后无法远程注销或踢出使用权限。故不接受任何形式的退费请求；请在付费获取激活码前慎重考虑。</li>
+          <li><strong>风控（封控）合规提示：</strong>115 网盘与 123 云盘存在严格且严肃的异地 302 风控（封控）规则，请务必在相关网盘服务商规则范围内使用本工具并遵守其条款。</li>
+          <li><strong>遵纪守法：</strong>请务必遵守当地法律法规。若使用本工具主动从事任何非法活动，且开发者或运营者对此毫不知情，则使用者自行承担全部责任。</li>
+        </ol>
+        <hr>
+        <p><strong>请您务必知晓以上内容后再使用本工具。</strong></p>
+      </section>
+    </div></template></div>
+
+  <script>
+  (function(){
+    // 内容文本（可在此处编辑）
+    const html = `
+      <section aria-labelledby="decl-title">
+        <h2 id="decl-title">使用声明（重要）</h2>
+        <p>本工具仅用于帮助使用者合理利用其自有网盘账户与相关功能，使用前请务必阅读并理解以下条款。</p>
+        <ol>
+          <li><strong>工具用途限定：</strong>本工具仅在帮助使用者合理利用自有网盘账户文件的情况下使用，利用 <code>.strm</code> 特性减少网盘访问服务器压力；利用网盘的 <code>302</code> 重定向特性减少使用者家庭上传带宽占用；并利用 <code>nginx</code> 特性降低配置难度。</li>
+          <li><strong>不承担第三方资源管理责任：</strong>本工具不涉及对视频文件本身的删除或修改，也不帮助使用者搜索或转存第三方人员资源。如因网盘文件减少或丢失导致任何损失，本工具不承担相应责任。</li>
+          <li><strong>不涉及爬取/重命名/刮削行为：</strong>本工具不对视频文件进行重命名、刮削元数据、或拉取相关节目的海报与人物头像等。如有涉及侵犯版权的功能或行为，请及时联系开发者反馈处理。</li>
+          <li><strong>不提供 VPN 服务与相关支持：</strong>本工具不包含任何 VPN 功能，亦无法帮助解决 VPN 相关网络问题，使用者需自行解决网络连通性及 VPN 需求。</li>
+          <li><strong>激活与付费说明：</strong>本工具的激活机制为：通过激活码在使用者本地进行永久激活，激活后无法远程注销或踢出使用权限。故不接受任何形式的退费请求；请在付费获取激活码前慎重考虑。</li>
+          <li><strong>风控（封控）合规提示：</strong>115 网盘与 123 云盘存在严格且严肃的异地 302 风控（封控）规则，请务必在相关网盘服务商规则范围内使用本工具并遵守其条款。</li>
+          <li><strong>遵纪守法：</strong>请务必遵守当地法律法规。若使用本工具主动从事任何非法活动，且开发者或运营者对此毫不知情，则使用者自行承担全部责任。</li>
+        </ol>
+        <hr />
+        <p><strong>请您务必知晓以上内容后再使用本工具。</strong></p>
+      </section>
+    `;
+// 插入到宿主页面的宿主元素
+    const host = document.getElementById('declaration-host');
+
+    // 创建 shadow DOM 来隔离样式，且使用 inherit 保持网站原有字体与主题
+    const root = host.attachShadow ?
+host.attachShadow({mode:'open'}) : host;
+
+    const style = document.createElement('style');
+    style.textContent = `
+      :host { display: block;
+}
+      section { 
+        box-sizing: border-box;
+        padding: 1rem;
+border-radius: 8px; 
+        border: 1px solid rgba(0,0,0,0.08);
+        background: transparent; /* 不强制背景，使用网站背景 */
+        color: inherit;
+/* 继承宿主颜色 */
+        font: inherit;
+/* 继承宿主字体 */
+        line-height: 1.6;
+}
+      h2 { margin: 0 0 0.5rem 0; font-size: 1.125em;
+}
+      ol { padding-left: 1.1em;
+}
+      li { margin: 0.5rem 0;
+}
+      code { background: rgba(0,0,0,0.04); padding: 0 0.25em; border-radius: 3px;
+}
+      hr { border: none; border-top: 1px solid rgba(0,0,0,0.06); margin: 1rem 0;
+}
+      @media (prefers-color-scheme: dark) {
+        section { border-color: rgba(255,255,255,0.06);
+}
+      }
+    `;
+// 采用 currentColor 和 inherit，保证不覆盖网站的主题或字体
+    const wrapper = document.createElement('div');
+    wrapper.setAttribute('aria-hidden','false');
+    wrapper.innerHTML = html;
+
+    root.appendChild(style);
+    root.appendChild(wrapper);
+// 方便通过 JS 调用进行高度自适应（如果以 iframe 嵌入并希望自动适配高度）
+    window.declarationWidget = {
+      hostElement: host,
+      shadowRoot: root
+    };
+})();
+  </script>
+
+
+        <div class="ending-message">
+           请牢记观影初心，运行稳定后就回归观影和回归生活吧！
+        </div>
+    </main>
+      <div style="max-width:720px;margin:16px auto;padding:14px;border-radius:8px;
+                  box-shadow:0 6px 18px rgba(0,0,0,0.06);background:linear-gradient(180deg,#fff,#fbfdff);
+                  border:1px solid rgba(0,0,0,0.04);font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Noto Sans',Arial;">
+        <h3 style="margin:0 0 6px 0;font-size:1.05rem;color:#0b2540;">emby 刮削问题解决方案</h3>
+        <p style="margin:0 0 10px 0;color:#334155;">emby 刮削不出图片？这里有一份解决方案：Cloudflare Workers + TMDB 代理等。</p>
+        <a href="https://cftmdb.6080808.xyz" target="_blank" rel="noopener noreferrer" style="display:inline-block;padding:8px 12px;border-radius:6px;text-decoration:none;
+                  font-weight:600;border:1px solid rgba(11,37,64,0.08);background:#0b57a4;color:#fff;">
+          查看详细方案 →
+        </a>
+      </div>
+    
+    <footer>
+        <p>© 2025 emby-nginx助手 保留解释权利</p>
+        <div class="footer-links">
+            <a href="https://docs.qq.com/doc/DTHVTcHRwb3pJdk1D" target="_blank" rel="noopener noreferrer">腾讯文档</a>
+            <a href="https://b23.tv/zlnJ6NE">b站视频</a>
+            <a href="https://t.me/Embynginx" target="_blank" rel="noopener noreferrer">Telegram群</a>
+            <a href="https://t.me/ytn3szh" target="_blank" rel="noopener noreferrer">Telegram私聊</a>
+        </div>
+    </footer>
+
+    <button class="theme-switcher" id="themeToggle">🌙</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const menuToggle = document.getElementById('menuToggle');
+            const navList = document.getElementById('navList');
+const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+            
+            // 三种主题状态: 'light' | 'dark' |
+'starry'
+            const currentTheme = localStorage.getItem('theme') ||
+(prefersDarkScheme.matches ? 'dark' : 'light');
+            
+            // 设置初始主题
+            setTheme(currentTheme);
+themeToggle.addEventListener('click', function() {
+                // 获取当前主题
+                const current = document.body.classList.contains('light-mode') ? 'light' : 
+                                document.body.classList.contains('starry-mode') ? 'starry' : 'dark';
+                
+                // 确定下一个主题
+                let nextTheme;
+                if (current === 'light') {
+                    nextTheme = 'dark';
+                } else if (current === 'dark') {
+                    nextTheme = 'starry';
+                } else {
+                    nextTheme = 'light';
+                }
+                
+                setTheme(nextTheme);
+                localStorage.setItem('theme', nextTheme);
+            });
+// 移动端菜单切换
+            menuToggle.addEventListener('click', function() {
+                navList.classList.toggle('show');
+            });
+// 点击菜单项后关闭菜单
+            document.querySelectorAll('.nav-list a').forEach(link => {
+                link.addEventListener('click', function() {
+                    navList.classList.remove('show');
+                });
+            });
+function setTheme(theme) {
+                // 清除所有主题类
+                document.body.classList.remove('light-mode', 'starry-mode');
+// 设置新主题
+                if (theme === 'light') {
+                    document.body.classList.add('light-mode');
+themeToggle.textContent = '🌙';
+                } else if (theme === 'starry') {
+                    document.body.classList.add('starry-mode');
+themeToggle.textContent = '☀️';
+                } else { // dark
+                    themeToggle.textContent = '✨';
+}
+            }
+
+            // 初始化复制按钮
+            setupCopyButtons();
+// 检查logo加载状态
+            const logoImg = document.querySelector('.nav-logo img');
+if (logoImg && logoImg.complete && logoImg.naturalHeight === 0) {
+                logoImg.parentElement.classList.add('error');
+}
+
+            // 根据时间自动切换主题
+            updateThemeBasedOnTime();
+setInterval(updateThemeBasedOnTime, 60 * 60 * 1000);
+        });
+
+        function setupCopyButtons() {
+            document.querySelectorAll('.copy-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const codeContainer = this.closest('.code-container');
+                    const codeSection = codeContainer.querySelector('.code-section');
+                    const codeToCopy = codeSection.textContent.trim();
+                    
+                    copyToClipboard(codeToCopy, this);
+                });
+            });
+}
+
+        function copyToClipboard(text, button) {
+            const textarea = document.createElement('textarea');
+textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            
+            document.body.appendChild(textarea);
+            textarea.select();
+try {
+                const successful = document.execCommand('copy');
+if (successful) {
+                    showCopySuccess(button);
+} else {
+                    button.textContent = '复制失败';
+setTimeout(() => {
+                        button.textContent = '复制';
+                    }, 2000);
+}
+            } catch (err) {
+                console.error('复制失败:', err);
+button.textContent = '复制失败';
+                setTimeout(() => {
+                    button.textContent = '复制';
+                }, 2000);
+} finally {
+                document.body.removeChild(textarea);
+}
+        }
+
+        function showCopySuccess(button) {
+            button.textContent = '已复制!';
+button.classList.add('copy-success');
+            setTimeout(() => {
+                button.textContent = '复制';
+                button.classList.remove('copy-success');
+            }, 2000);
+}
+
+        function toggleTools() {
+            const toolsContent = document.getElementById('toolsContent');
+toolsContent.classList.toggle('show');
+            const button = document.querySelector('.toggle-tools');
+            if (toolsContent.classList.contains('show')) {
+                button.textContent = '隐藏配合工具';
+} else {
+                button.textContent = '显示配合工具';
+}
+        }
+
+        function updateThemeBasedOnTime() {
+            const now = new Date();
+const beijingOffset = 8 * 60 * 60 * 1000;
+            const localTime = new Date(now.getTime() + beijingOffset);
+const hours = localTime.getHours();
+            
+            // 仅在未手动选择主题时自动切换
+            if (!localStorage.getItem('theme')) {
+                const isDayTime = hours >= 6 && hours < 18;
+const themeToggle = document.getElementById('themeToggle');
+                
+                if (isDayTime) {
+                    setTheme('light');
+} else if (hours >= 18 && hours < 22) {
+                    setTheme('dark');
+} else {
+                    setTheme('starry');
+}
+            }
+        }
+
+        // 确保所有代码块都有复制按钮
+        document.querySelectorAll('.code-section').forEach(section => {
+            if (!section.parentNode.classList.contains('code-container')) {
+                const container = document.createElement('div');
+                container.className = 'code-container';
+                section.parentNode.insertBefore(container, section);
+                container.appendChild(section);
+                
+                const btn = document.createElement('button');
+                btn.className = 'copy-btn';
+                btn.textContent = '复制';
+                btn.addEventListener('click', function() {
+                    const codeToCopy = section.textContent.trim();
+                    copyToClipboard(codeToCopy, this);
+                });
+                container.insertBefore(btn, section);
+           }
+        });
+</script>
+
+</body></html>
