@@ -203,7 +203,7 @@ services:
 扫码关注获取购买激活码帮助
 
 <p align="center">
-  <img src="https://ghproxy.cc/https://raw.githubusercontent.com/HQSxcj/emby-nginx/main/image/IMG_4163.jpeg" width="120">
+  <img src="https://github.com/Hqsxjj/emby-nginx/blob/main/公众号/IMG_0267.jpeg" width="120">
 </p>
 
 **提示**：请用微信扫描二维码关注公众号
