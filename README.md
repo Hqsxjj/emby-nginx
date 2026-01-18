@@ -187,6 +187,22 @@ services:
 - Openlist 生成的 STRM 文件直接解析7001端口播放
 
 ---
+### 📢 Emby Webhook 通知配置
+
+在 **Emby → 通知 → Webhook** 中填写以下地址：
+http://你的局域网IP:9527/api/v1/webhook?refresh=true
+说明：
+- 用于在 Emby 媒体变更后，自动触发 STRM 生成与媒体信息刷新
+- `refresh=true` 表示强制刷新媒体库与海报信息
+
+### 🔗 Filmix Webhook 通知配置
+
+在 **Filmix → Webhook 通知地址** 中填写：
+https://你的emby-nginx公网访问地址/api/webhook
+说明：
+- Filmix 整理、重命名完成后自动通知 emby-nginx
+- 实现 STRM 文件生成、媒体信息探测与 302 直链播放
+- 
 
 ### 支持安装 emby-nginx 的设备
 
