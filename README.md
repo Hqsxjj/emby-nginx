@@ -189,7 +189,7 @@ services:
 ---
 ### 📢 Emby Webhook 通知配置
 
-在 **Emby → 通知 → Webhook** 中填写以下地址：
+在 **Emby → 通知 → 添加通知 → Webhooks** 中填写以下地址：
 http://你的局域网IP:9527/api/v1/webhook?refresh=true
 - 说明：
 - 用于在 Emby 媒体变更后，自动触发 STRM 生成与媒体信息刷新
@@ -197,7 +197,7 @@ http://你的局域网IP:9527/api/v1/webhook?refresh=true
 
 ### 🔗 Filmix Webhook 通知配置
 
-在 **Filmix → Webhook 通知地址** 中填写：
+在 **Filmix → 我的 → Webhook 配置 → url** 中填写：
 https://你的emby-nginx公网访问地址/api/webhook
 - 说明：
 - Filmix 整理、重命名完成后自动通知 emby-nginx
