@@ -192,8 +192,8 @@ services:
 在 **Emby → 通知 → 添加通知 → Webhooks** 中填写以下地址：
 http://你的局域网IP:9527/api/v1/webhook?refresh=true
 - 说明：
-- 用于在 Emby 媒体变更后，自动触发 STRM 生成与媒体信息刷新
-- `refresh=true` 表示强制刷新媒体库与海报信息
+- 用于在 Emby 媒体新增入库后，触发 STRM 文件媒体信息探测
+- `refresh=true` 表示打开追更探测文件媒体信息
 
 ### 🔗 Filmix Webhook 通知配置
 
@@ -201,7 +201,7 @@ http://你的局域网IP:9527/api/v1/webhook?refresh=true
 https://你的emby-nginx公网访问地址/api/webhook
 - 说明：
 - Filmix 整理、重命名完成后自动通知 emby-nginx
-- 实现 STRM 文件生成、媒体信息探测与 302 直链播放
+- 实时 STRM 文件生成、刷新emby海报墙入库与文件媒体信息探测
 
 ### 支持安装 emby-nginx 的设备
 
