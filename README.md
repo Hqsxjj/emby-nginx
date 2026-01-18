@@ -103,6 +103,9 @@
 ### 📄 独创扩展名STRM文件
 - 同一文件夹内同名多版本视频，生成 mp4.strm、mkv.strm、iso.strm
 - 保证同文件夹所有视频文件都可以生成strm文件，防生成遗漏
+
+###  Filmix联动
+- 智能Ai重命名整理工具 Filmix整理后可通过webhook通知emby-nginx生成strm文件，并实时刷新海报提取文件媒体信息302播放。
 ---
 
 ## 🐳 Docker CLI 部署示例
