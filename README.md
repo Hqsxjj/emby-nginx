@@ -193,7 +193,7 @@ services:
 http://你的局域网IP:9527/api/v1/webhook?refresh=true
 - 说明：
 - 用于在 Emby 媒体新增入库后，触发 STRM 文件媒体信息探测
-- `refresh=true` 表示打开追更探测文件媒体信息
+- `refresh=true` 表示打开追更探测文件媒体信息，如不需要打开请删除`refresh=true`
 
 ### 🔗 Filmix Webhook 通知配置
 
